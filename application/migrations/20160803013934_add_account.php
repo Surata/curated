@@ -45,11 +45,9 @@ class Migration_Add_account extends CI_Migration {
             ),
             'created_at' => array(
                  'type' => 'TIMESTAMP',
-                 'default' => 'CURRENT_TIMESTAMP',
             ),
             'updated_at' => array(
                  'type' => 'TIMESTAMP',
-                 'default' => 'CURRENT_TIMESTAMP',
             ),
         ));
 		$this->dbforge->add_key('id', TRUE);

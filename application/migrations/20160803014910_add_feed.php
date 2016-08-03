@@ -17,22 +17,26 @@ class Migration_Add_feed extends CI_Migration {
 	            'type' => 'INT',
 	            'constraint' => 5,
 	            'unsigned' => TRUE,
-	        )
+	        ),
 	        'content' => array(
 	            'type' => 'TEXT',
 	            'null' => TRUE
 	        ),
 	        'image_url' => array(
                 'type' => 'VARCHAR',
-                'constraint' => '100'
+                'constraint' => '100',
+                'null' => TRUE
+            ),
+            'video_url' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+                'null' => TRUE
             ),
 	        'created_at' => array(
                  'type' => 'TIMESTAMP',
-                 'default' => 'CURRENT_TIMESTAMP',
             ),
             'updated_at' => array(
                  'type' => 'TIMESTAMP',
-                 'default' => 'CURRENT_TIMESTAMP',
             ),
         ));
         $this->dbforge->add_key('id', TRUE);

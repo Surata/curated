@@ -19,7 +19,7 @@ class Authentication extends MY_Controller
 		$params = $this->params();
 		$account = $this->authentication_service->register($params['username'], $params['email'], $params['password']);
 
-		var_dump($account);
+		echo json_encode($account);
 	}
 	
 }

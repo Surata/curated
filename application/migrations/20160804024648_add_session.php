@@ -18,7 +18,7 @@ class Migration_Add_session extends CI_Migration {
                 'constraint' => 5,
                 'unsigned' => TRUE,
             ),
-            'accessToken' => array(
+            'access_token' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '100'
             ),

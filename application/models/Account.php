@@ -2,9 +2,15 @@
 
 class Account extends MY_Model {
 
-    public $username;
-    public $email;
-    public $password_hash;
+    const kAccountTable = "account";
+    const kAccountId = "id";
+    const kAccountEmail = "email";
+    const kAccountUsername = "username";
+    const kAccountPassword = "password_hash";
+    const kAccountCover = "cover";
+    const kAccountStatus = "status";
+    const kAccountType = "type";
+    const kAccountCreatedAt = "created_at";
 
     public function __construct()
     {
@@ -12,28 +18,70 @@ class Account extends MY_Model {
         parent::__construct();
     }
 
-    public function create()
+    public function insert($username, $email, $password)
     {
-        $this->email = $this->params()['email'];
-        $this->username = $this->params()['username'];
-        $this->password_hash = password_hash($this->params()['password'], PASSWORD_DEFAULT);
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $this->db->insert('account', $this);
+        $data = array(
+            self::kAccountEmail => $email,
+            self::kAccountUsername => $username,
+            self::kAccountPassword => $password_hash
+        );
+
+        $this->db->insert(self::kAccountTable, $data);
+
+        if($this->db->affected_rows() > 0){
+            return $this->get_by_username($username);
+        } else {
+            return false;
+        }
     }
 
-    public function search_by_username($username)
+    public function get_by_id($id)
     {
-        $username = $this->params()['username'];
-        $account = $this->db->get_where('account', array('username' => $username))->row()
-
-        return $account
+        $query = $this->db->select($this->account_selection_field())->from(self::kAccountTable)
+                            ->where(self::kAccountId, $id)
+                            ->get();
+        return $query->row();
     }
 
-    public function authorize_account($account)
+    public function get_by_email($email)
     {
-        $password = $this->params()['password']
-        $is_valid = password_verify($password, $account->password_hash)
-        return $is_valid
+        $query = $this->db->select($this->account_selection_field())->from(self::kAccountTable)
+                            ->where(self::kAccountEmail, $email)
+                            ->get();
+        return $query->row();
+    }
+
+    public function get_by_username($username)
+    {
+        $query = $this->db->select($this->account_selection_field())->from(self::kAccountTable)
+                            ->where(self::kAccountUsername, $username)
+                            ->get();
+        return $query->row();
+    }
+
+    private function account_selection_field() 
+    {
+        $arr = array(
+            self::kAccountId, 
+            self::kAccountUsername, 
+            self::kAccountEmail, 
+            self::kAccountStatus, 
+            self::kAccountCover, 
+            self::kAccountType, 
+            self::kAccountCreatedAt
+        );
+
+        $selection = '*';
+        foreach ($arr as $item) {
+            if ($selection == '*') {
+                $selection = $item;
+            } else {
+                $selection = $selection . ', ' . $item;
+            }
+        }
+        return $selection;
     }
 
 }

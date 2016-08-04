@@ -6,7 +6,7 @@ class Authentication extends MY_Controller
 	public function __construct()
     {
         parent::__construct();
-        $this->load->model('account');
+        $this->load->library('authentication_service');
     }
 
 	public function login()
@@ -16,7 +16,10 @@ class Authentication extends MY_Controller
 
 	public function register()
 	{
-		$account = $this->account->create();
+		$params = $this->params();
+		$account = $this->authentication_service->register($params['username'], $params['email'], $params['password']);
+
+		var_dump($account);
 	}
 	
 }

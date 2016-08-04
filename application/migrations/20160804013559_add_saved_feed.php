@@ -41,6 +41,6 @@ class Migration_Add_saved_feed extends CI_Migration {
 
     public function down()
     {
-           
+        $this->dbforge->drop_table('saved_feed');   
     }
 }

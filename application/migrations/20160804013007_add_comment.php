@@ -42,6 +42,6 @@ class Migration_Add_comment extends CI_Migration {
 
     public function down()
     {
-           
+        $this->dbforge->drop_table('comment');   
     }
 }

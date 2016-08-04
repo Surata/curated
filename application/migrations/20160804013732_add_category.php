@@ -33,6 +33,6 @@ class Migration_Add_category extends CI_Migration {
 
     public function down()
     {
-           
+        $this->dbforge->drop_table('category');   
     }
 }

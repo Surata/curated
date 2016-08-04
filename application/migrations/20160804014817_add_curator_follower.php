@@ -32,6 +32,6 @@ class Migration_Add_curator_follower extends CI_Migration {
 
     public function down()
     {
-           
+        $this->dbforge->drop_table('curator_follower');   
     }
 }

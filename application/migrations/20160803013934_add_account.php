@@ -23,7 +23,7 @@ class Migration_Add_account extends CI_Migration {
             ),
             'password_hash' => array(
                 'type' => 'VARCHAR',
-                'constraint' => '100'
+                'constraint' => '250'
             ),
             'password_salt' => array(
                 'type' => 'VARCHAR',
